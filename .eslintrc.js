@@ -16,10 +16,17 @@ module.exports = {
   rules: {
     'import/extensions': 'off',
     'react/prop-types': 'off',
-    'react/jsx-filename-extension': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',
     'no-use-before-define': 'off',
     'import/no-unresolved': 'off',
+    'no-param-reassign': 'off',
+    'react/jsx-filename-extension': [
+      1,
+      {extensions: ['.js', '.jsx', 'tsx', 'ts']},
+    ],
+    'linebreak-style': 'off',
+    'react/button-has-type': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
   },
 };

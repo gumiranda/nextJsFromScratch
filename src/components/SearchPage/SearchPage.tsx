@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import CountryList from '../CountryList/CountryList';
+import styles from './SearchPage.module.scss';
 
-const SearchPage = (props: any) => {
+const SearchPage = () => {
   const [input, setInput] = useState('');
   const [countryListDefault, setCountryListDefault] = useState([]);
   const [countryList, setCountryList] = useState([]);
@@ -28,14 +29,14 @@ const SearchPage = (props: any) => {
   }, []);
 
   return (
-    <>
+    <div className={styles.container}>
       <h1>Country List</h1>
       <SearchBar
         keyword={input}
         setKeyword={updateInput}
       />
       <CountryList countryList={countryList} />
-    </>
+    </div>
   );
 };
 
