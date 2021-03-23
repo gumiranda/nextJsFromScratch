@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
+  extends: ['plugin:react/recommended', 'airbnb'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -15,6 +15,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'import/extensions': 'off',
+    'object-curly-spacing': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',
@@ -25,7 +26,6 @@ module.exports = {
       1,
       {extensions: ['.js', '.jsx', 'tsx', 'ts']},
     ],
-    'linebreak-style': 'off',
     'react/button-has-type': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
   },
