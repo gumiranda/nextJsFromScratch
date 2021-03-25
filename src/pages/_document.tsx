@@ -1,16 +1,17 @@
-import Document,{Html,Head,Main,NextScript} from 'next/document';
+import Document, {
+  Html, Head, Main, NextScript,
+} from 'next/document';
 
-export default class MyDocument extends Document{
+export default class MyDocument extends Document {
   render() {
-    return(<Html>
-      <Head>
-       <title>GrowthHackerTest</title>
-      </Head> 
-      <body>
-        <Main/>
-        <NextScript/>
-      </body>
-    </Html>
+    return (
+      <Html>
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
     );
   }
 }
