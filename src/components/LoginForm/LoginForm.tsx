@@ -1,22 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import api from '@/services/api';
 import {
-  Form, Input, Button, Checkbox,
+  Form, Input, Button,
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { signInRequest } from '@/appStore/appModules/auth/actions';
+import { useDispatch } from 'react-redux';
 import styles from './LoginForm.module.scss';
 
 export default function LoginForm() {
+  const dispatch = useDispatch();
+
   const onFinish = async (values: any) => {
     console.log('Received values of form: ', values);
     const { email, password } = values;
-    const res = await api.post('/api/register',
-      {
-        email,
-        password,
-      });
-
-    alert(JSON.stringify(res.data));
+    dispatch(signInRequest({ email, password }));
   };
 
   return (

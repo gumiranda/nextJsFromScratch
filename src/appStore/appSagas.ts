@@ -1,4 +1,4 @@
-import {all} from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 import auth from './appModules/auth/sagas';
 import user from './appModules/user/sagas';
 
