@@ -13,7 +13,7 @@ const SearchPage = () => {
     const data = await response.json();
     setItemList(data);
     setItemListDefault(data);
-  }
+  };
 
   const updateInput = async (inputToUpdate: React.SetStateAction<string>) => {
     const filtered = itemListDefault?.filter((item: { name: string; }) => item.name.toLowerCase().includes(input.toLowerCase()));
@@ -21,9 +21,9 @@ const SearchPage = () => {
     setItemList(filtered);
   };
 
-  useEffect(() => { 
-    async function getCountries(){
-      await fetchData(); 
+  useEffect(() => {
+    async function getCountries() {
+      await fetchData();
     }
     getCountries();
   }, []);
