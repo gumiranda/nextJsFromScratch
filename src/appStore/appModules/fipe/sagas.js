@@ -1,12 +1,12 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import api from '@/services/externalapi2';
 import { getSuccess } from './list';
-import { puppyFailure } from './actions';
+import { fipeFailure } from './actions';
 
-export function* getPuppys({ payload }) {
+export function* getFipes({ payload }) {
   try {
     const { query, field } = payload;
-    let url = '?';
+    let url = '';
 
     if (query && field) {
       if (field.includes('ingredients')) {
@@ -23,16 +23,16 @@ export function* getPuppys({ payload }) {
     if (response.data) {
       yield put(
         getSuccess({
-          puppysList: response.data,
+          fipesList: response.data,
         }),
       );
     } else {
-      yield put(puppyFailure());
+      yield put(fipeFailure());
     }
   } catch (err) {
     alert('Erro', 'Confira seus dados');
-    yield put(puppyFailure());
+    yield put(fipeFailure());
   }
 }
 
-export default all([takeLatest('@puppy/LIST_REQUEST', getPuppys)]);
+export default all([takeLatest('@fipe/LIST_REQUEST', getFipes)]);

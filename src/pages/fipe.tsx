@@ -5,19 +5,19 @@ import {
 } from 'antd';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRequest } from '@/appStore/appModules/puppy/list';
+import { getRequest } from '@/appStore/appModules/fipe/list';
 import { StarOutlined } from '@ant-design/icons';
 import Layout from '@/components/Layout/Layout';
 import AddFavoriteButton from '@/components/AddFavoriteButton/AddFavoriteButton';
 
-export default function Puppy() {
+export default function Fipe() {
   const dispatch = useDispatch();
-  const puppysList:any = useSelector<any>((state) => state.puppy.puppysList);
+  const fipesList:any = useSelector<any>((state) => state.fipe.fipesList);
   const favoritesList:any = useSelector<any>((state) => state.favorite.favoritesList);
   const verifyIfIsFavorite = (item) => {
     const filtered = favoritesList?.filter((it: { key: string; }) => {
       if (it && it.key) {
-        if (it?.key?.toString().toLowerCase()?.includes(item?.title?.toString().toLowerCase())) {
+        if (it?.key?.toString().toLowerCase()?.includes(item?.nome?.toString().toLowerCase())) {
           return it;
         }
       }
@@ -29,10 +29,10 @@ export default function Puppy() {
     return true;
   };
   useEffect(() => {
-    async function getPuppys() {
+    async function getFipes() {
       dispatch(getRequest({}));
     }
-    getPuppys();
+    getFipes();
   }, []);
   return (
     <Layout>
@@ -45,12 +45,12 @@ export default function Puppy() {
           },
           pageSize: 3,
         }}
-        dataSource={puppysList || []}
+        dataSource={fipesList || []}
 
         renderItem={(item:any) => (
           <>
             <List.Item
-              key={item.title}
+              key={item.codigo}
               actions={[
 
                 <AddFavoriteButton item={item} icon={StarOutlined} text={verifyIfIsFavorite(item) ? 'Adicionar aos favoritos' : 'Remover dos favoritos'} key="list-vertical-star-o" />,
@@ -58,9 +58,9 @@ export default function Puppy() {
             >
               <List.Item.Meta
                 avatar={<Avatar src={item.thumbnail} />}
-                title={<a href={item.href}>{item.title}</a>}
+                title={<a href={item.href}>{item.nome}</a>}
               />
-              {`Ingredients: ${item?.ingredients ? item.ingredients : ''}`}
+              {`Code of brand: ${item?.codigo ? item.codigo : ''}`}
               <br />
             </List.Item>
           </>

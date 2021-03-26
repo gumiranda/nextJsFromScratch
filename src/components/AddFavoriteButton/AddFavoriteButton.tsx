@@ -18,7 +18,7 @@ const AddFavorite = ({
     if (!isSigned) {
       alert('Para adicionar aos favoritos é necessário realizar o login');
     } else {
-      const keyItem = item?.name ? item.name : item?.title;
+      const keyItem = item?.name ? item.name : item?.nome;
       if (text?.includes('Remover')) {
         dispatch(favoriteRemoveRequest({ ...item, userId: userLogged?._id, key: String(keyItem) }));
       } else {

@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger';
 import auth from './appModules/auth/reducer';
 import favorite from './appModules/favorite/reducer';
 import brewery from './appModules/brewery/reducer';
-import puppy from './appModules/puppy/reducer';
+import fipe from './appModules/fipe/reducer';
 
 import appSagas from './appSagas';
 
@@ -19,14 +19,14 @@ const enhancer = applyMiddleware(...middlewares);
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'favorite', 'brewery', 'puppy'],
+  whitelist: ['auth', 'favorite', 'brewery', 'fipe'],
 };
 
 const rootReducer = combineReducers({
   auth,
   favorite,
   brewery,
-  puppy,
+  fipe,
 });
 const appStore = createStore(persistReducer(persistConfig, rootReducer), enhancer);
 
