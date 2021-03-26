@@ -9,6 +9,7 @@ import { getRequest } from '@/appStore/appModules/brewery/list';
 import { StarOutlined } from '@ant-design/icons';
 import Layout from '@/components/Layout/Layout';
 import AddFavoriteButton from '@/components/AddFavoriteButton/AddFavoriteButton';
+import SearchBox from '@/components/SearchBox/SearchBox';
 
 export default function Brewery() {
   const dispatch = useDispatch();
@@ -34,8 +35,11 @@ export default function Brewery() {
     }
     getBrewerys();
   }, []);
+  const onSearch = (value) => console.log(value);
+
   return (
     <Layout>
+      <SearchBox onSearch={onSearch} />
       <List
         itemLayout="vertical"
         size="large"
@@ -56,7 +60,6 @@ export default function Brewery() {
               ]}
             >
               <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
                 title={<a href={item.website_url}>{item.name}</a>}
                 description={item.description}
               />
