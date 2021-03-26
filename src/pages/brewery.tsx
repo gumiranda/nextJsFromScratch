@@ -17,7 +17,7 @@ export default function Brewery() {
   const verifyIfIsFavorite = (item) => {
     const filtered = favoritesList?.filter((it: { key: string; }) => {
       if (it && it.key) {
-        if (it?.key?.toString().toLowerCase()?.includes(item?.id?.toString().toLowerCase())) {
+        if (it?.key?.toString().toLowerCase()?.includes(item?.name?.toString().toLowerCase())) {
           return it;
         }
       }
