@@ -1,7 +1,7 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  profile: null,
+  user: null,
   loading: false,
   usersLoading: false,
   usersList: [],
@@ -14,15 +14,15 @@ export default function user(state = INITIAL_STATE, action) {
     switch (action.type) {
       case '@auth/SIGN_IN_SUCCESS': {
         draft.loading = false;
-        draft.profile = action.payload.user;
+        draft.user = action.payload.user;
         break;
       }
-      case '@user/UPDATE_PROFILE_SUCCESS': {
+      case '@user/UPDATE_USER_SUCCESS': {
         draft.loading = false;
-        draft.profile = action.payload.profile;
+        draft.user = action.payload.user;
         break;
       }
-      case '@user/UPDATE_PROFILE_REQUEST': {
+      case '@user/UPDATE_USER_REQUEST': {
         draft.loading = true;
         break;
       }
@@ -30,11 +30,11 @@ export default function user(state = INITIAL_STATE, action) {
         draft.loading = true;
         break;
       }
-      case '@user/COMPLETE_PROFILE_REQUEST': {
+      case '@user/COMPLETE_USER_REQUEST': {
         draft.loading = true;
         break;
       }
-      case '@user/UPDATE_PROFILE_FAILURE': {
+      case '@user/UPDATE_USER_FAILURE': {
         draft.loading = false;
         break;
       }
@@ -62,7 +62,7 @@ export default function user(state = INITIAL_STATE, action) {
         break;
       }
       case '@auth/SIGN_OUT': {
-        draft.profile = null;
+        draft.user = null;
         draft.usersList = [];
         draft.usersPage = 1;
         draft.usersTotal = 0;

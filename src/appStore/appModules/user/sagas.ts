@@ -1,6 +1,6 @@
 import {all, takeLatest, call, put, select} from 'redux-saga/effects';
 import api from '@/services/api';
-import {updateProfileSuccess, updateProfileFailure} from './actions';
+import {updateUserSuccess, updateUserFailure} from './actions';
 import {getSuccess, getFailure} from './list';
 
 export function* getSession() {
@@ -8,14 +8,14 @@ export function* getSession() {
     const response = yield call(api.get, 'user/session');
     if (response?.data?.user) {
       console.log('USER ATUALIZADO', response?.data?.user?.cardId);
-      yield put(updateProfileSuccess(response.data.user));
+      yield put(updateUserSuccess(response.data.user));
     }
   } catch (e) {
     console.log(e);
-    yield put(updateProfileFailure());
+    yield put(updateUserFailure());
   }
 }
-export function* updateProfile({payload}) {
+export function* updateUser({payload}) {
   try {
     const {
       name,
@@ -25,7 +25,7 @@ export function* updateProfile({payload}) {
       password,
       passwordConfirmation,
     } = payload.data;
-    const profile = {
+    const user = {
       name,
       _id,
       email,
@@ -34,24 +34,24 @@ export function* updateProfile({payload}) {
       passwordConfirmation,
     };
 
-    const response = yield call(api.put, `user/${profile._id}`, profile);
+    const response = yield call(api.put, `user/${user._id}`, user);
     if (response.data.message) {
       alert('Erro', 'Confira seus dados');
 
-      yield put(updateProfileFailure());
+      yield put(updateUserFailure());
     } else if (response.data) {
-      yield put(updateProfileSuccess(response.data));
+      yield put(updateUserSuccess(response.data));
     } else {
       alert('Erro', 'Confira seus dados');
-      yield put(updateProfileFailure());
+      yield put(updateUserFailure());
     }
   } catch (err) {
     console.tron.log(err);
     alert('Erro', 'Confira seus dados');
-    yield put(updateProfileFailure());
+    yield put(updateUserFailure());
   }
 }
-export function* completeProfile({payload}) {
+export function* completeUser({payload}) {
   try {
     let newCpf;
     if (payload?.data?.cpf) {
@@ -81,15 +81,15 @@ export function* completeProfile({payload}) {
         : payload.data,
     );
     if (response.data) {
-      yield put(updateProfileSuccess(response.data));
+      yield put(updateUserSuccess(response.data));
     } else {
       alert('Erro', 'Confira seus dados');
-      yield put(updateProfileFailure());
+      yield put(updateUserFailure());
     }
   } catch (err) {
     console.log(err);
     alert('Erro', 'Confira seus dados');
-    yield put(updateProfileFailure());
+    yield put(updateUserFailure());
   }
 }
 export function* getUsers({payload}) {
@@ -119,8 +119,8 @@ export function* getUsers({payload}) {
 }
 
 export default all([
-  takeLatest('@user/UPDATE_PROFILE_REQUEST', updateProfile),
+  takeLatest('@user/UPDATE_USER_REQUEST', updateUser),
   takeLatest('@user/LIST_REQUEST', getUsers),
   takeLatest('@user/GET_SESSION', getSession),
-  takeLatest('@user/COMPLETE_PROFILE_REQUEST', completeProfile),
+  takeLatest('@user/COMPLETE_USER_REQUEST', completeUser),
 ]);
