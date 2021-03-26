@@ -8,6 +8,7 @@ export default async function handler(req, res) {
     const user = await db.collection('users').findOne({ email });
     if (user) {
       res.status(200).json({ message: 'Email exists in database' });
+      return;
     }
     const result = await db.collection('users').insertOne({ email, password });
     if (result?.ops[0]) {

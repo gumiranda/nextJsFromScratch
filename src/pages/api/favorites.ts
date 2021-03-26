@@ -11,6 +11,7 @@ export default async function handler(req, res) {
       if (favorite) {
         const favorites = await db.collection('favorites').find({ userId }).toArray();
         res.status(200).json({ favorites });
+        return;
       }
     }
     if (title) {
@@ -18,10 +19,11 @@ export default async function handler(req, res) {
       if (favorite) {
         const favorites = await db.collection('favorites').find({ userId }).toArray();
         res.status(200).json({ favorites });
+        return;
       }
     }
 
-    const result = await db.collection('favorites').insertOne({ ...req.body, userId: new ObjectId(userId) });
+    const result = await db.collection('favorites').insertOne(req.body);
     if (result?.ops[0]) {
       const favorites = await db.collection('favorites').find({ userId }).toArray();
       res.status(200).json({ favorites });
@@ -31,7 +33,7 @@ export default async function handler(req, res) {
   } else if (req.method === 'GET') {
     const { db } = await connectToDatabase();
     const { userId, sort, query, field } = req.query;
-    const search = { userId: new ObjectId(userId) };
+    const search = { userId };
     if (field && query) {
       search[field] = query;
     }
