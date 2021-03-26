@@ -2,7 +2,6 @@ import {
   Card, Col, Row, Avatar,
 } from 'antd';
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import { connectToDatabase } from '../util/mongodb';
 
@@ -27,10 +26,7 @@ export default function Home({ isConnected }) {
   }, [isConnected]);
   return (
     <>
-      <Head>
-        <title>GrowthHackTest</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+
       <div className="main-container">
         <div className="site-card-wrapper">
           <Row gutter={12}>
