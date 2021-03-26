@@ -1,32 +1,20 @@
 /* eslint-disable react/jsx-props-no-multi-spaces */
 import { List, Avatar } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRequest } from '@/appStore/appModules/brewery/list';
 import Layout from '../components/Layout/Layout';
 
-const listData = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    id: 543,
-    name: 'Dry River Brewing',
-    brewery_type: 'micro',
-    street: '671 S Anderson St',
-    address_2: null,
-    address_3: null,
-    city: 'Los Angeles',
-    state: 'California',
-    county_province: null,
-    postal_code: '90023-1110',
-    country: 'United States',
-    longitude: '-118.223301521739',
-    latitude: '34.0363873913043',
-    phone: '2133755235',
-    website_url: 'http://www.dryriverbrewing.com',
-    updated_at: '2018-08-23T23:27:38.017Z',
-    created_at: '2018-07-24T01:32:54.647Z',
-  });
-}
-
 export default function Brewery() {
+  const dispatch = useDispatch();
+  const { brewerysList } = useSelector((state) => state.brewery);
+
+  useEffect(() => {
+    async function getBrewerys() {
+      dispatch(getRequest({}));
+    }
+    getBrewerys();
+  }, []);
   return (
     <Layout>
       <List
@@ -38,9 +26,9 @@ export default function Brewery() {
           },
           pageSize: 3,
         }}
-        dataSource={listData}
+        dataSource={brewerysList || []}
 
-        renderItem={(item) => (
+        renderItem={(item:any) => (
           <>
             <List.Item
               key={item.title}
