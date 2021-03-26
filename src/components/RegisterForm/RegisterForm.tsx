@@ -3,17 +3,17 @@ import {
   Form, Input, Button,
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { signInRequest } from '@/appStore/appModules/auth/actions';
+import { signUpRequest } from '@/appStore/appModules/auth/actions';
 import { useDispatch } from 'react-redux';
-import styles from './LoginForm.module.scss';
+import styles from './RegisterForm.module.scss';
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const dispatch = useDispatch();
 
   const onFinish = async (values: any) => {
     console.log('Received values of form: ', values);
     const { email, password } = values;
-    dispatch(signInRequest({ email, password }));
+    dispatch(signUpRequest({ email, password }));
   };
 
   return (
@@ -45,7 +45,7 @@ export default function LoginForm() {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className={styles['login-form-button']}>
-            Log in
+            Sign Up
           </Button>
 
         </Form.Item>

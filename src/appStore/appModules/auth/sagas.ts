@@ -14,7 +14,7 @@ export function* signIn({ payload }) {
     console.log(response);
     const user = response.data;
     yield put(signInSuccess(user));
-    Router.push('/users');
+    Router.push('/');
   } catch (e) {
     console.log(e);
     alert('Error in signin');
@@ -31,7 +31,7 @@ export function* signUp({ payload }) {
     });
     if (response?.data?._id) {
       yield put(signInSuccess(response?.data));
-      Router.push('/users');
+      Router.push('/');
     } else {
       if (response?.data?.message) {
         alert(response?.data?.message);
