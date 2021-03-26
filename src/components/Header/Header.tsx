@@ -1,5 +1,5 @@
 import {
-  PageHeader, Button,
+  PageHeader, Button, Badge,
 } from 'antd';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
@@ -7,6 +7,7 @@ import Link from 'next/link';
 function Header(props) {
   const signed = useSelector((state) => state.auth.signed);
   const userLogged = useSelector((state) => state.auth.userLogged);
+  const favoritesTotal = useSelector((state) => state.favorite.favoritesTotal);
 
   return (
     <>
@@ -16,9 +17,18 @@ function Header(props) {
         subTitle="Brewerys and Recipes"
         extra={[
           <Link href={signed && userLogged ? '/favorites' : '/register'}>
-            <Button key="2">
-              {signed && userLogged ? 'My Favorites' : 'Register'}
-            </Button>
+            {signed && userLogged ? (
+              <Badge count={favoritesTotal} overflowCount={32}>
+                <Button key="2">
+                  My Favorites
+                </Button>
+              </Badge>
+            ) : (
+              <Button key="2">
+                Register
+              </Button>
+            )}
+
           </Link>,
           <Link href={signed && userLogged ? '/logout' : '/login'}>
             <Button key="1" type="primary">

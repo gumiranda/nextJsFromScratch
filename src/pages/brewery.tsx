@@ -1,9 +1,13 @@
 /* eslint-disable react/jsx-props-no-multi-spaces */
-import { List, Avatar } from 'antd';
+import {
+  List, Avatar,
+} from 'antd';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRequest } from '@/appStore/appModules/brewery/list';
-import Layout from '../components/Layout/Layout';
+import { StarOutlined } from '@ant-design/icons';
+import Layout from '@/components/Layout/Layout';
+import AddFavoriteButton from '@/components/AddFavoriteButton/AddFavoriteButton';
 
 export default function Brewery() {
   const dispatch = useDispatch();
@@ -32,6 +36,9 @@ export default function Brewery() {
           <>
             <List.Item
               key={item.title}
+              actions={[
+                <AddFavoriteButton item={item} icon={StarOutlined} text="Adicionar aos favoritos" key="list-vertical-star-o" />,
+              ]}
             >
               <List.Item.Meta
                 avatar={<Avatar src={item.avatar} />}
