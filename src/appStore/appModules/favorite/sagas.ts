@@ -58,7 +58,29 @@ export function* insertFavorite({ payload }) {
     yield put(favoriteFailure());
   }
 }
+
+export function* removeFavorite({ payload }) {
+  try {
+    const { key, userId } = payload;
+    const response = yield call(api.delete, `favorites?key=${encodeURI(key)}&userId=${encodeURI(userId)}`);
+    if (response?.data?.favorites) {
+      yield put(favoriteSuccess());
+      yield put(
+        getSuccess({
+          favoritesList: response?.data?.favorites,
+          favoritesTotal: response?.data?.favorites?.length,
+        }),
+      );
+    } else {
+      yield put(favoriteFailure());
+    }
+  } catch (e) {
+    alert('Error to remove the favorite');
+    yield put(favoriteFailure());
+  }
+}
 export default all([
   takeLatest('@favorite/FAVORITE_REQUEST', insertFavorite),
+  takeLatest('@favorite/FAVORITE_REMOVE_REQUEST', removeFavorite),
   takeLatest('@favorite/LIST_REQUEST', getFavorites),
 ]);

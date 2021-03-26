@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const { db } = await connectToDatabase();
     const { userId, id, title } = req.body;
     if (id) {
-      const favorite = await db.collection('favorites').findOne({ userId, id });
+      const favorite = await db.collection('favorites').findOne({ userId, key: id });
       if (favorite) {
         const favorites = await db.collection('favorites').find({ userId }).toArray();
         res.status(200).json({ favorites });
@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       }
     }
     if (title) {
-      const favorite = await db.collection('favorites').findOne({ userId, title });
+      const favorite = await db.collection('favorites').findOne({ userId, key: title });
       if (favorite) {
         const favorites = await db.collection('favorites').find({ userId }).toArray();
         res.status(200).json({ favorites });
@@ -30,6 +30,14 @@ export default async function handler(req, res) {
     } else {
       res.status(400).json({ message: 'Bad request error' });
     }
+  } else if (req.method === 'DELETE') {
+    const { db } = await connectToDatabase();
+    const { userId, key } = req.query;
+    console.log(userId, key);
+    const result = await db.collection('favorites').deleteOne({ userId, key });
+    console.log(result.deletedCount);
+    const favorites = await db.collection('favorites').find({ userId }).toArray();
+    res.status(200).json({ favorites });
   } else if (req.method === 'GET') {
     const { db } = await connectToDatabase();
     const { userId, sort, query, field } = req.query;

@@ -1,12 +1,19 @@
-import ProtectedRoute from '@/components/ProtectedRoute/ProtectedRoute';
 import Layout from '@/components/Layout/Layout';
+import Router from 'next/router';
+import { useSelector } from 'react-redux';
 
 export default function Favorites() {
+  const signed = useSelector((state) => state.auth.signed);
+  if (!signed) {
+    Router.push('/');
+  }
   return (
     <Layout>
-      <ProtectedRoute>
-        <p>route</p>
-      </ProtectedRoute>
+      {signed && (
+      <p>
+        ola
+      </p>
+      )}
     </Layout>
   );
 }

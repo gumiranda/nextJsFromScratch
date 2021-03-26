@@ -4,7 +4,7 @@ import {
   Button, Space,
 } from 'antd';
 import React from 'react';
-import { favoriteRequest } from '@/appStore/appModules/favorite/actions';
+import { favoriteRequest, favoriteRemoveRequest } from '@/appStore/appModules/favorite/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AddFavorite = ({
@@ -12,11 +12,19 @@ const AddFavorite = ({
 }) => {
   const dispatch = useDispatch();
   const userLogged = useSelector((state) => state.auth.userLogged);
+  const isSigned = useSelector((state) => state.auth.signed);
 
   const addFav = async () => {
-    console.log(userLogged);
-    console.log(item);
-    dispatch(favoriteRequest({ ...item, userId: userLogged?._id }));
+    if (!isSigned) {
+      alert('Para adicionar aos favoritos é necessário realizar o login');
+    } else {
+      const keyItem = item?.id ? item.id : item?.title;
+      if (text?.includes('Remover')) {
+        dispatch(favoriteRemoveRequest({ ...item, userId: userLogged?._id, key: String(keyItem) }));
+      } else {
+        dispatch(favoriteRequest({ ...item, userId: userLogged?._id, key: String(keyItem) }));
+      }
+    }
   };
   const IconText = ({ icon, text }) => (
     <Button onClick={() => addFav()}>

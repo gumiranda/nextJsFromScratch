@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-props-no-multi-spaces */
 import {
   List, Avatar,
@@ -12,7 +13,21 @@ import AddFavoriteButton from '@/components/AddFavoriteButton/AddFavoriteButton'
 export default function Brewery() {
   const dispatch = useDispatch();
   const { brewerysList } = useSelector((state) => state.brewery);
-
+  const favoritesList = useSelector((state) => state.favorite.favoritesList);
+  const verifyIfIsFavorite = (item) => {
+    const filtered = favoritesList?.filter((it: { key: string; }) => {
+      if (it && it.key) {
+        if (it?.key?.toString().toLowerCase()?.includes(item?.id?.toString().toLowerCase())) {
+          return it;
+        }
+      }
+    });
+    console.log(filtered);
+    if (filtered?.length > 0) {
+      return false;
+    }
+    return true;
+  };
   useEffect(() => {
     async function getBrewerys() {
       dispatch(getRequest({}));
@@ -37,7 +52,8 @@ export default function Brewery() {
             <List.Item
               key={item.title}
               actions={[
-                <AddFavoriteButton item={item} icon={StarOutlined} text="Adicionar aos favoritos" key="list-vertical-star-o" />,
+
+                <AddFavoriteButton item={item} icon={StarOutlined} text={verifyIfIsFavorite(item) ? 'Adicionar aos favoritos' : 'Remover dos favoritos'} key="list-vertical-star-o" />,
               ]}
             >
               <List.Item.Meta

@@ -48,7 +48,6 @@ export default function favorite(state = INITIAL_STATE, action) {
         draft.favoritesLoading = false;
         draft.favoritesList = [];
         draft.params = {};
-
         break;
       }
       default:
