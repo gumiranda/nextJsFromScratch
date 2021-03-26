@@ -4,9 +4,9 @@ export function reset() {
 export function getRequest(params) {
   return { type: '@favorite/LIST_REQUEST', payload: params };
 }
-export function getSuccess({ favoritesList, favoritesTotal }) {
+export function getSuccess({ favoritesList, favoritesOfUser, favoritesTotal }) {
   return {
     type: '@favorite/LIST_SUCCESS',
-    payload: { favoritesList, favoritesTotal },
+    payload: { favoritesList, favoritesOfUser, favoritesTotal },
   };
 }

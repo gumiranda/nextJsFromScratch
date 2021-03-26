@@ -26,7 +26,8 @@ export function* getFavorites({ payload }) {
       yield put(
         getSuccess({
           favoritesList: response?.data?.favorites,
-          favoritesTotal: response?.data?.favorites?.length,
+          favoritesOfUser: response?.data?.favoritesOfUser,
+          favoritesTotal: response?.data?.favoritesTotal,
         }),
       );
     } else {
@@ -46,7 +47,8 @@ export function* insertFavorite({ payload }) {
       yield put(
         getSuccess({
           favoritesList: response?.data?.favorites,
-          favoritesTotal: response?.data?.favorites?.length,
+          favoritesOfUser: response?.data?.favoritesOfUser,
+          favoritesTotal: response?.data?.favoritesTotal,
         }),
       );
     } else {
@@ -68,7 +70,8 @@ export function* removeFavorite({ payload }) {
       yield put(
         getSuccess({
           favoritesList: response?.data?.favorites,
-          favoritesTotal: response?.data?.favorites?.length,
+          favoritesOfUser: response?.data?.favoritesOfUser,
+          favoritesTotal: response?.data?.favoritesTotal,
         }),
       );
     } else {

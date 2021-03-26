@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 /* eslint-disable react/jsx-props-no-multi-spaces */
 import {
-  List, Avatar,
+  List,
 } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRequest } from '@/appStore/appModules/brewery/list';
 import { StarOutlined } from '@ant-design/icons';
@@ -14,9 +14,12 @@ import SearchBox from '@/components/SearchBox/SearchBox';
 export default function Brewery() {
   const dispatch = useDispatch();
   const brewerysList:any = useSelector<any>((state) => state.brewery.brewerysList);
-  const favoritesList:any = useSelector<any>((state) => state.favorite.favoritesList);
+  const favoritesOfUser:any = useSelector<any>((state) => state.favorite.favoritesOfUser);
+  const listFields:any = brewerysList && brewerysList.length > 0 ? Object.keys(brewerysList[0]).filter((fav) => fav !== 'created_at' && fav !== 'updated_at' && fav !== 'key' && fav !== 'userId' && fav !== '_id') : [];
+  const [fieldQuery, setFieldQuery] = useState(listFields[0] || '');
+  const [fieldsQuery, setFieldsQuery] = useState(listFields || []);
   const verifyIfIsFavorite = (item) => {
-    const filtered = favoritesList?.filter((it: { key: string; }) => {
+    const filtered = favoritesOfUser?.filter((it: { key: string; }) => {
       if (it && it.key) {
         if (it?.key?.toString().toLowerCase()?.includes(item?.name?.toString().toLowerCase())) {
           return it;
@@ -35,48 +38,60 @@ export default function Brewery() {
     }
     getBrewerys();
   }, []);
+  useEffect(() => {
+    const listFieldsNew:any = brewerysList && brewerysList.length > 0 ? Object.keys(brewerysList[0]).filter((fav) => fav !== 'created_at' && fav !== 'updated_at' && fav !== 'key' && fav !== 'userId' && fav !== '_id') : [];
+    setFieldsQuery(listFieldsNew);
+  }, [brewerysList]);
   const onSearch = (value) => console.log(value);
-
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+    setFieldQuery(value);
+  };
   return (
     <Layout>
-      <SearchBox onSearch={onSearch} />
-      <List
-        itemLayout="vertical"
-        size="large"
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 3,
-        }}
-        dataSource={brewerysList || []}
-        renderItem={(item:any) => (
-          <>
-            <List.Item
-              key={item.title}
-              actions={[
+      <SearchBox defaultField={fieldQuery} fieldsQuery={fieldsQuery} onSearch={onSearch} handleChange={handleChange} />
+      <div className="box">
+        <List
+          itemLayout="vertical"
+          size="large"
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+            },
+            pageSize: 3,
+          }}
+          dataSource={brewerysList || []}
+          renderItem={(item:any) => (
+            <>
+              <List.Item
+                key={item.title}
+                actions={[
 
-                <AddFavoriteButton item={item} icon={StarOutlined} text={verifyIfIsFavorite(item) ? 'Adicionar aos favoritos' : 'Remover dos favoritos'} key="list-vertical-star-o" />,
-              ]}
-            >
-              <List.Item.Meta
-                title={<a href={item.website_url}>{item.name}</a>}
-                description={item.description}
-              />
-              {`Address: ${item.street} ${item.city} - ${item.state}\n`}
-              <br />
-              {`Country: ${item.country}`}
-              <br />
-              {`Zipcode: ${item.postal_code}`}
-              <br />
-              {`Type: ${item.brewery_type}`}
-              <br />
-              {`Phone: ${item.phone}`}
-            </List.Item>
-          </>
-        )}
-      />
-      <br />
+                  <AddFavoriteButton item={item} icon={StarOutlined} text={verifyIfIsFavorite(item) ? 'Adicionar aos favoritos' : 'Remover dos favoritos'} key="list-vertical-star-o" />,
+                ]}
+              >
+                <List.Item.Meta
+                  title={<a href={item.website_url}>{item.name}</a>}
+                  description={item.description}
+                />
+                {Object.entries({
+                  ...item, _id: null, userId: null, id: null, website_url: null, longitude: null, latitude: null, created_at: null, updated_at: null, key: null,
+                }).map(([key, value]) => (
+                  <>
+                    {value ? (
+                      <p>
+                        {`${key}: ${value || ''}`}
+                      </p>
+                    ) : null}
+                  </>
+                ))}
+              </List.Item>
+            </>
+          )}
+        />
+        <br />
+      </div>
+
     </Layout>
   );
 }

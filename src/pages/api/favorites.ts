@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { connectToDatabase } from '@/util/mongodb';
 import { ObjectId } from 'mongodb';
 
@@ -10,7 +11,7 @@ export default async function handler(req, res) {
       const favorite = await db.collection('favorites').findOne({ userId, key: id });
       if (favorite) {
         const favorites = await db.collection('favorites').find({ userId }).toArray();
-        res.status(200).json({ favorites });
+        res.status(200).json({ favorites, favoritesOfUser: favorites, favoritesTotal: favorites.length });
         return;
       }
     }
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
       const favorite = await db.collection('favorites').findOne({ userId, key: title });
       if (favorite) {
         const favorites = await db.collection('favorites').find({ userId }).toArray();
-        res.status(200).json({ favorites });
+        res.status(200).json({ favorites, favoritesOfUser: favorites, favoritesTotal: favorites.length });
         return;
       }
     }
@@ -26,7 +27,7 @@ export default async function handler(req, res) {
     const result = await db.collection('favorites').insertOne(req.body);
     if (result?.ops[0]) {
       const favorites = await db.collection('favorites').find({ userId }).toArray();
-      res.status(200).json({ favorites });
+      res.status(200).json({ favorites, favoritesOfUser: favorites, favoritesTotal: favorites.length });
     } else {
       res.status(400).json({ message: 'Bad request error' });
     }
@@ -38,22 +39,22 @@ export default async function handler(req, res) {
     console.log(result.deletedCount);
     if (result.deletedCount > 0) {
       const favorites = await db.collection('favorites').find({ userId }).toArray();
-      res.status(200).json({ favorites });
+      res.status(200).json({ favorites, favoritesOfUser: favorites, favoritesTotal: favorites.length });
     } else {
       res.status(400).json({ message: 'Error to remove the register' });
     }
   } else if (req.method === 'GET') {
     const { db } = await connectToDatabase();
-    const {
-      userId, sort, query, field,
-    } = req.query;
+    const { userId, sort, query, field } = req.query;
     const search = { userId };
     if (field && query) {
-      search[field] = query;
+      search[field] = { $regex: query, $options: 'i' };
     }
+    console.log(search);
     const sortBy = { [sort]: 1 };
+    const favoritesOfUser = await db.collection('favorites').find({ userId }).toArray();
     const favorites = await db.collection('favorites').find(search).sort(sortBy).toArray();
-    res.status(200).json({ favorites });
+    res.status(200).json({ favorites, favoritesOfUser, favoritesTotal: favoritesOfUser.length });
   } else {
     res.status(200).json({ message: 'Method not implemented' });
   }

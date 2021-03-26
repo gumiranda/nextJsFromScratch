@@ -76,16 +76,19 @@ button {
   cursor: pointer;
 }
 //1rem === 16px
-// .main-container {
-//   display: flex;
-//   align-self: center;
-// }
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .main-card {
   width: 25rem;
   margin: 12px 16px;
 }
-.min-h-60vh {
+.min-h-80vh {
   min-height: 80vh;
+  max-width: 90vw;
+  margin: 0 1rem;
 }
 .box {
   margin-left: 1rem;
@@ -94,5 +97,6 @@ button {
   margin-left: 1rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
 }

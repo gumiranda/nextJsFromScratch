@@ -3,7 +3,7 @@
 import {
   List,
 } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRequest } from '@/appStore/appModules/fipe/list';
 import { StarOutlined } from '@ant-design/icons';
@@ -14,9 +14,12 @@ import SearchBox from '@/components/SearchBox/SearchBox';
 export default function Fipe() {
   const dispatch = useDispatch();
   const fipesList:any = useSelector<any>((state) => state.fipe.fipesList);
-  const favoritesList:any = useSelector<any>((state) => state.favorite.favoritesList);
+  const favoritesOfUser:any = useSelector<any>((state) => state.favorite.favoritesOfUser);
+  const listFields:any = fipesList && fipesList.length > 0 ? Object.keys(fipesList[0]).filter((fav) => fav !== 'created_at' && fav !== 'updated_at' && fav !== 'key' && fav !== 'userId' && fav !== '_id') : [];
+  const [fieldQuery, setFieldQuery] = useState(listFields[0] || '');
+  const [fieldsQuery, setFieldsQuery] = useState(listFields || []);
   const verifyIfIsFavorite = (item) => {
-    const filtered = favoritesList?.filter((it: { key: string; }) => {
+    const filtered = favoritesOfUser?.filter((it: { key: string; }) => {
       if (it && it.key) {
         if (it?.key?.toString().toLowerCase()?.includes(item?.nome?.toString().toLowerCase())) {
           return it;
@@ -35,14 +38,19 @@ export default function Fipe() {
     }
     getFipes();
   }, []);
+  useEffect(() => {
+    const listFieldsNew:any = fipesList && fipesList.length > 0 ? Object.keys(fipesList[0]).filter((fav) => fav !== 'created_at' && fav !== 'updated_at' && fav !== 'key' && fav !== 'userId' && fav !== '_id') : [];
+    setFieldsQuery(listFieldsNew);
+  }, [fipesList]);
   const onSearch = (value) => console.log(value);
-
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+    setFieldQuery(value);
+  };
   return (
     <Layout>
+      <SearchBox defaultField={fieldQuery} fieldsQuery={fieldsQuery} onSearch={onSearch} handleChange={handleChange} />
 
-      <SearchBox
-        onSearch={onSearch}
-      />
       <div className="box">
         <List
           itemLayout="vertical"
@@ -67,8 +75,17 @@ export default function Fipe() {
                 <List.Item.Meta
                   title={<a href={item.href}>{item.nome}</a>}
                 />
-                {`Code of brand: ${item?.codigo ? item.codigo : ''}`}
-                <br />
+                {Object.entries({
+                  ...item, _id: null, userId: null, id: null, created_at: null, updated_at: null, key: null,
+                }).map(([key, value]) => (
+                  <>
+                    {value ? (
+                      <p>
+                        {`${key}: ${value || ''}`}
+                      </p>
+                    ) : null}
+                  </>
+                ))}
               </List.Item>
             </>
           )}

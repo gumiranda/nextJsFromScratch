@@ -3,6 +3,7 @@ import produce from 'immer';
 const INITIAL_STATE = {
   favoritesLoading: false,
   favoritesList: [],
+  favoritesOfUser: [],
   favoritesTotal: 0,
   params: {},
 };
@@ -14,6 +15,7 @@ export default function favorite(state = INITIAL_STATE, action) {
         draft.favoritesLoading = false;
         draft.favoritesTotal = action.payload.favoritesTotal;
         draft.favoritesList = action.payload.favoritesList;
+        draft.favoritesOfUser = action.payload.favoritesOfUser;
         break;
       }
       case '@favorite/LIST_REQUEST': {
@@ -38,6 +40,7 @@ export default function favorite(state = INITIAL_STATE, action) {
       case '@favorite/RESET': {
         draft.favoritesLoading = false;
         draft.favoritesList = [];
+        draft.favoritesOfUser = [];
         draft.favoritesTotal = 0;
         draft.params = {};
         break;
@@ -47,6 +50,7 @@ export default function favorite(state = INITIAL_STATE, action) {
         draft.favoritesTotal = 0;
         draft.favoritesLoading = false;
         draft.favoritesList = [];
+        draft.favoritesOfUser = [];
         draft.params = {};
         break;
       }
