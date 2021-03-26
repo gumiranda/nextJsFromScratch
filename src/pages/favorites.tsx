@@ -5,14 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 /* eslint-disable max-len */
 /* eslint-disable react/jsx-props-no-multi-spaces */
 import {
-  List, Avatar,
+  List, Avatar, Input, Space, Select,
 } from 'antd';
 import React, { useEffect } from 'react';
-
 import { getRequest } from '@/appStore/appModules/favorite/list';
 import { StarOutlined } from '@ant-design/icons';
-
 import AddFavoriteButton from '@/components/AddFavoriteButton/AddFavoriteButton';
+
+const { Search } = Input;
 
 export default function Favorite() {
   const dispatch = useDispatch();
@@ -29,12 +29,25 @@ export default function Favorite() {
     }
     getFavorites();
   }, []);
+  const onSearch = (value) => console.log(value);
 
   return (
     <Layout>
+      <div className="search-box">
+        <Space>
+          <Search
+            placeholder="input search text"
+            allowClear
+            enterButton="Search"
+            size="large"
+            onSearch={onSearch}
+          />
+        </Space>
+      </div>
+
       <List
         itemLayout="vertical"
-        size="large"
+        size="default"
         pagination={{
           onChange: (page) => {
             console.log(page);
@@ -72,6 +85,7 @@ export default function Favorite() {
         )}
       />
       <br />
+
     </Layout>
   );
 }
