@@ -14,6 +14,8 @@ export function* getPuppys({ payload }) {
       }
       if (field.includes('title')) {
         url += `q=${query}&`;
+      } else {
+        url += 'q=chicken&';
       }
     }
 
