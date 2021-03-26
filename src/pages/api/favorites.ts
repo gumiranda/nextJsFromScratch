@@ -36,11 +36,17 @@ export default async function handler(req, res) {
     console.log(userId, key);
     const result = await db.collection('favorites').deleteOne({ userId, key });
     console.log(result.deletedCount);
-    const favorites = await db.collection('favorites').find({ userId }).toArray();
-    res.status(200).json({ favorites });
+    if (result.deletedCount > 0) {
+      const favorites = await db.collection('favorites').find({ userId }).toArray();
+      res.status(200).json({ favorites });
+    } else {
+      res.status(400).json({ message: 'Error to remove the register' });
+    }
   } else if (req.method === 'GET') {
     const { db } = await connectToDatabase();
-    const { userId, sort, query, field } = req.query;
+    const {
+      userId, sort, query, field,
+    } = req.query;
     const search = { userId };
     if (field && query) {
       search[field] = query;

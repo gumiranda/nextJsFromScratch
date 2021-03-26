@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import Layout from '@/components/Layout/Layout';
 import Router from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,12 +16,12 @@ import AddFavoriteButton from '@/components/AddFavoriteButton/AddFavoriteButton'
 
 export default function Favorite() {
   const dispatch = useDispatch();
-  const signed = useSelector((state) => state.auth.signed);
-  const userLogged = useSelector((state) => state.auth.userLogged);
+  const signed = useSelector<any>((state) => state.auth.signed);
+  const userLogged:any = useSelector<any>((state) => state.auth.userLogged);
   if (!signed) {
     Router.push('/');
   }
-  const favoritesList = useSelector((state) => state.favorite.favoritesList);
+  const favoritesList:any = useSelector<any>((state) => state.favorite.favoritesList);
 
   useEffect(() => {
     async function getFavorites() {
@@ -54,11 +55,13 @@ export default function Favorite() {
                 avatar={<Avatar src={item.thumbnail} />}
                 title={<a href={item.href}>{item?.key}</a>}
               />
-              {Object.entries({ ...item, _id: null, userId: null }).map(([key, value]) => (
+              {Object.entries({
+                ...item, _id: null, userId: null, id: null, created_at: null, updated_at: null, key: null,
+              }).map(([key, value]) => (
                 <>
                   {value ? (
                     <p>
-                      {`${key} - ${value || ''}`}
+                      {`${key}: ${value || ''}`}
                     </p>
                   ) : null}
                 </>

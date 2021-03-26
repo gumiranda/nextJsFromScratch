@@ -11,8 +11,8 @@ const AddFavorite = ({
   item, icon, text, key,
 }) => {
   const dispatch = useDispatch();
-  const userLogged = useSelector((state) => state.auth.userLogged);
-  const isSigned = useSelector((state) => state.auth.signed);
+  const userLogged:any = useSelector<any>((state) => state.auth.userLogged);
+  const isSigned = useSelector<any>((state) => state.auth.signed);
 
   const addFav = async () => {
     if (!isSigned) {
@@ -26,7 +26,7 @@ const AddFavorite = ({
       }
     }
   };
-  const IconText = ({ icon, text }) => (
+  const IconText:any = ({ icon, text }) => (
     <Button onClick={() => addFav()}>
       <Space>
         {React.createElement(icon)}

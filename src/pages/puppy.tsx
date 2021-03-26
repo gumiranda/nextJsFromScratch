@@ -12,8 +12,8 @@ import AddFavoriteButton from '@/components/AddFavoriteButton/AddFavoriteButton'
 
 export default function Puppy() {
   const dispatch = useDispatch();
-  const { puppysList } = useSelector((state) => state.puppy);
-  const favoritesList = useSelector((state) => state.favorite.favoritesList);
+  const puppysList:any = useSelector<any>((state) => state.puppy.puppysList);
+  const favoritesList:any = useSelector<any>((state) => state.favorite.favoritesList);
   const verifyIfIsFavorite = (item) => {
     const filtered = favoritesList?.filter((it: { key: string; }) => {
       if (it && it.key) {

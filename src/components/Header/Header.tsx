@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import Link from 'next/link';
 
 function Header(props) {
-  const signed = useSelector((state) => state.auth.signed);
-  const userLogged = useSelector((state) => state.auth.userLogged);
-  const favoritesTotal = useSelector((state) => state.favorite.favoritesTotal);
+  const signed = useSelector<any>((state) => state.auth.signed);
+  const userLogged = useSelector<any>((state) => state.auth.userLogged);
+  const favoritesTotal = useSelector<any>((state) => state.favorite.favoritesTotal);
 
   return (
     <>

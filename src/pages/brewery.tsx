@@ -12,8 +12,8 @@ import AddFavoriteButton from '@/components/AddFavoriteButton/AddFavoriteButton'
 
 export default function Brewery() {
   const dispatch = useDispatch();
-  const { brewerysList } = useSelector((state) => state.brewery);
-  const favoritesList = useSelector((state) => state.favorite.favoritesList);
+  const brewerysList:any = useSelector<any>((state) => state.brewery.brewerysList);
+  const favoritesList:any = useSelector<any>((state) => state.favorite.favoritesList);
   const verifyIfIsFavorite = (item) => {
     const filtered = favoritesList?.filter((it: { key: string; }) => {
       if (it && it.key) {
@@ -46,7 +46,6 @@ export default function Brewery() {
           pageSize: 3,
         }}
         dataSource={brewerysList || []}
-
         renderItem={(item:any) => (
           <>
             <List.Item
