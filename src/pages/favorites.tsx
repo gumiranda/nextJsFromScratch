@@ -54,12 +54,13 @@ export default function Favorite() {
                 avatar={<Avatar src={item.thumbnail} />}
                 title={<a href={item.href}>{item?.key}</a>}
               />
-              {Object.entries({ ...item, _id: null }).map(([key, value]) => (
+              {Object.entries({ ...item, _id: null, userId: null }).map(([key, value]) => (
                 <>
-                  <p>
-                    {`${key} - ${value || ''}`}
-                  </p>
-                  <br />
+                  {value ? (
+                    <p>
+                      {`${key} - ${value || ''}`}
+                    </p>
+                  ) : null}
                 </>
               ))}
 
