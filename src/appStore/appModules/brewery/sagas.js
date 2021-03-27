@@ -7,7 +7,7 @@ export function* getBrewerys({ payload }) {
   try {
     const { sort, query, field, typeSort } = payload;
     let url = 'breweries?';
-    const type = typeSort.includes('asc') ? '-' : '+';
+    const type = typeSort?.includes('asc') ? '-' : '+';
     if (sort) {
       url += `sort=${type}${sort}&`;
     }
@@ -26,7 +26,9 @@ export function* getBrewerys({ payload }) {
       yield put(breweryFailure());
     }
   } catch (err) {
-    alert('Erro', 'Confira seus dados');
+    console.log(err);
+
+    alert(JSON.stringify(err));
     yield put(breweryFailure());
   }
 }

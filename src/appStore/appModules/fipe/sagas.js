@@ -44,7 +44,8 @@ export function* getFipes({ payload }) {
       yield put(fipeFailure());
     }
   } catch (err) {
-    alert('Erro', 'Confira seus dados');
+    console.log(err);
+    alert(JSON.stringify(err));
     yield put(fipeFailure());
   }
 }
