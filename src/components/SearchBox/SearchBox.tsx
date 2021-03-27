@@ -32,7 +32,7 @@ function SearchBox({
 
             <Space style={{ margin: '1rem' }}>
 
-              <p style={pStyle} style={pStyle}>Search by</p>
+              <p style={pStyle}>Search by</p>
               <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChange}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
