@@ -93,10 +93,35 @@ button {
 .box {
   margin-left: 1rem;
 }
-.search-box {
-  margin-left: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+@media (max-width: 1080px) {
+  .search-box {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vw;
+  }
+  .search-bar {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 90vw;
+  }
+}
+@media (max-width: 720px) {
+  .search-box {
+    display: flex;
+    flex-direction: row;
+    max-width: 90vw;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  .search-bar {
+    display: flex;
+    flex-direction: row;
+    max-width: 90vw;
+  }
 }
