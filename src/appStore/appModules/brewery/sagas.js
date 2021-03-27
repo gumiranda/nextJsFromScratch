@@ -5,9 +5,9 @@ import { breweryFailure } from './actions';
 
 export function* getBrewerys({ payload }) {
   try {
-    const { sort, query, field, ascending } = payload;
+    const { sort, query, field, typeSort } = payload;
     let url = 'breweries?';
-    const type = ascending ? '-' : '+';
+    const type = typeSort.includes('asc') ? '-' : '+';
     if (sort) {
       url += `sort=${type}${sort}&`;
     }

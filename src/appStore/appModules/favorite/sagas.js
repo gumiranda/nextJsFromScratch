@@ -5,11 +5,11 @@ import { favoriteFailure, favoriteSuccess } from './actions';
 
 export function* getFavorites({ payload }) {
   try {
-    const { sort, query, field, userId } = payload;
+    const { sort, query, field, userId, typeSort } = payload;
     let url = 'favorites?';
 
-    if (sort) {
-      url += `sort=${sort}&`;
+    if (sort && typeSort) {
+      url += `sort=${sort}&typeSort=${typeSort}`;
     }
     if (query) {
       url += `query=${query}&`;

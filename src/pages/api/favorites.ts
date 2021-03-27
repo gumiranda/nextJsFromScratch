@@ -50,7 +50,6 @@ export default async function handler(req, res) {
     if (field && query) {
       search[field] = { $regex: query, $options: 'i' };
     }
-    console.log(search);
     const sortBy = { [sort]: 1 };
     const favoritesOfUser = await db.collection('favorites').find({ userId }).toArray();
     const favorites = await db.collection('favorites').find(search).sort(sortBy).toArray();

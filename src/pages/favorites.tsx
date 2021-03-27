@@ -25,7 +25,8 @@ export default function Favorite() {
   const favoritesList:any = useSelector<any>((state) => state.favorite.favoritesList);
   const listFields:any = Array.from(new Set(favoritesList && favoritesList.length > 0 ? favoritesList.map((favorite) => Object.keys(favorite).filter((fav) => fav !== 'created_at' && fav !== 'updated_at' && fav !== 'key' && fav !== 'userId' && fav !== '_id').toString()) : [])).toString().split(',') || [];
   const [fieldQuery, setFieldQuery] = useState(listFields[0] || '');
-  const [sortBy, setSortBy] = useState('_id');
+  const [sort, setSort] = useState(listFields[0] || '');
+  const [typeSort, setTypeSort] = useState('asc');
   const [fieldsQuery, setFieldsQuery] = useState(listFields || []);
   useEffect(() => {
     async function getFavorites() {
@@ -36,17 +37,26 @@ export default function Favorite() {
 
   const onSearch = (value) => {
     dispatch(getRequest({
-      userId: userLogged?._id, sort: sortBy, field: fieldQuery, query: value,
+      userId: userLogged?._id, sort, field: fieldQuery, query: value,
     }));
   };
+
   const handleChange = (value) => {
     console.log(`selected ${value}`);
     setFieldQuery(value);
   };
+  const handleChangeOrder = (value) => {
+    console.log(`selected ${value}`);
+    setSort(value);
+  };
+  const handleChangeTypeOrder = (value) => {
+    console.log(`selected ${value}`);
+    setTypeSort(value);
+  };
   return (
     <Layout>
 
-      <SearchBox defaultField={fieldQuery} fieldsQuery={fieldsQuery} onSearch={onSearch} handleChange={handleChange} />
+      <SearchBox defaultTypeSort="asc" typeSortOptions={['asc', 'desc']} handleChangeTypeOrder={handleChangeTypeOrder} handleChangeOrder={handleChangeOrder} defaultField={fieldQuery} fieldsQuery={fieldsQuery} onSearch={onSearch} handleChange={handleChange} />
       <div className="box">
         <List
           itemLayout="vertical"
