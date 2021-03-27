@@ -63,11 +63,19 @@ export default function Favorite() {
         <List
           itemLayout="vertical"
           size="default"
+          grid={{
+            xs: 1,
+            sm: 2,
+            md: 2,
+            lg: 2,
+            xl: 2,
+            xxl: 2,
+          }}
           pagination={{
             onChange: (page) => {
               console.log(page);
             },
-            pageSize: 4,
+            pageSize: 6,
           }}
           dataSource={favoritesList || []}
 
@@ -76,7 +84,9 @@ export default function Favorite() {
 
               <List.Item
                 key={item.key}
-                style={{ minHeight: '20vh' }}
+                style={{
+                  minHeight: '20vh', paddingLeft: 10, marginTop: 10, marginBottom: 10, backgroundColor: '#fff',
+                }}
                 actions={[
                   <AddFavoriteButton item={item} icon={StarOutlined} text="Remover dos favoritos" key="list-vertical-star-o" />,
                 ]}

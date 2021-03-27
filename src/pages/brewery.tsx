@@ -73,18 +73,29 @@ export default function Brewery() {
       <div className="box">
         <List
           itemLayout="vertical"
-          size="large"
+          size="default"
+          grid={{
+            xs: 1,
+            sm: 2,
+            md: 2,
+            lg: 2,
+            xl: 2,
+            xxl: 2,
+          }}
           pagination={{
             onChange: (page) => {
               console.log(page);
             },
-            pageSize: 3,
+            pageSize: 6,
           }}
           dataSource={brewerysList || []}
           renderItem={(item:any) => (
             <>
               <List.Item
                 key={item.title}
+                style={{
+                  maxWidth: '95%', height: '95%', padding: '2rem', marginTop: 10, marginBottom: 10, backgroundColor: '#fff',
+                }}
                 actions={[
 
                   <AddFavoriteButton item={item} icon={StarOutlined} text={verifyIfIsFavorite(item) ? 'Adicionar aos favoritos' : 'Remover dos favoritos'} key="list-vertical-star-o" />,

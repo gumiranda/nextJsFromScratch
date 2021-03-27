@@ -23,6 +23,7 @@ function SearchBox({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  const pStyle = { color: '#fff' };
   return (
     <>
       {windowDimensions.width > 477 ? (
@@ -31,7 +32,7 @@ function SearchBox({
 
             <Space style={{ margin: '1rem' }}>
 
-              <p>Search by</p>
+              <p style={pStyle} style={pStyle}>Search by</p>
               <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChange}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
@@ -51,7 +52,7 @@ function SearchBox({
 
             <Space style={{ margin: '1rem' }}>
 
-              <p>Order by</p>
+              <p style={pStyle}>Order by</p>
               <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChangeOrder}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
@@ -60,7 +61,7 @@ function SearchBox({
             </Space>
             <Space style={{ margin: '1rem' }}>
 
-              <p>Type order</p>
+              <p style={pStyle}>Type order</p>
               <Select style={{ width: 120 }} defaultValue={defaultTypeSort} onChange={handleChangeTypeOrder}>
                 {typeSortOptions.map((field) => (
                   <Option value={field}>{field}</Option>
@@ -74,7 +75,7 @@ function SearchBox({
           <div className="search-box">
             <Space style={{ margin: '1rem' }}>
 
-              <p>Search by</p>
+              <p style={pStyle}>Search by</p>
               <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChange}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
@@ -99,7 +100,7 @@ function SearchBox({
 
             <Space style={{ margin: '1rem' }}>
 
-              <p>Order by</p>
+              <p style={pStyle}>Order by</p>
               <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChangeOrder}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
@@ -108,7 +109,7 @@ function SearchBox({
             </Space>
             <Space style={{ margin: '1rem' }}>
 
-              <p>Type order</p>
+              <p style={pStyle}>Type order</p>
               <Select style={{ width: 120 }} defaultValue={defaultTypeSort} onChange={handleChangeTypeOrder}>
                 {typeSortOptions.map((field) => (
                   <Option value={field}>{field}</Option>
