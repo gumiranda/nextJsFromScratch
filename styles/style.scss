@@ -85,10 +85,17 @@ button {
   width: 25rem;
   margin: 12px 16px;
 }
-.min-h-80vh {
-  min-height: 80vh;
-  max-width: 90vw;
-  margin: 0 1rem;
+@media (max-width: 1080px) {
+  .min-h-80vh {
+    min-height: 80vh;
+    max-width: 90vw;
+    margin: 0 1rem;
+  }
+}
+@media (max-width: 720px) {
+  .min-h-80vh {
+    min-height: 80vh;
+  }
 }
 .box {
   margin-left: 1rem;

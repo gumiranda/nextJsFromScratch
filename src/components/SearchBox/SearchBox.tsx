@@ -12,7 +12,7 @@ function getWindowDimensions() {
   };
 }
 function SearchBox({
-  onSearch, fieldsQuery, defaultField, handleChange, handleChangeOrder, defaultTypeSort, typeSortOptions, handleChangeTypeOrder,
+  onSearch, fieldsQuery, defaultField, handleChange, handleChangeOrder, disabled, defaultTypeSort, typeSortOptions, handleChangeTypeOrder,
 }) {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   useEffect(() => {
@@ -32,7 +32,7 @@ function SearchBox({
             <Space style={{ margin: '1rem' }}>
 
               <p>Search by</p>
-              <Select defaultValue={defaultField} onChange={handleChange}>
+              <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChange}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
                 ))}
@@ -42,6 +42,7 @@ function SearchBox({
               <Search
                 placeholder="input search text"
                 allowClear
+                disabled={disabled}
                 enterButton="Search"
                 size="large"
                 onSearch={onSearch}
@@ -51,7 +52,7 @@ function SearchBox({
             <Space style={{ margin: '1rem' }}>
 
               <p>Order by</p>
-              <Select defaultValue={defaultField} onChange={handleChangeOrder}>
+              <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChangeOrder}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
                 ))}
@@ -60,7 +61,7 @@ function SearchBox({
             <Space style={{ margin: '1rem' }}>
 
               <p>Type order</p>
-              <Select defaultValue={defaultTypeSort} onChange={handleChangeTypeOrder}>
+              <Select style={{ width: 120 }} defaultValue={defaultTypeSort} onChange={handleChangeTypeOrder}>
                 {typeSortOptions.map((field) => (
                   <Option value={field}>{field}</Option>
                 ))}
@@ -74,7 +75,7 @@ function SearchBox({
             <Space style={{ margin: '1rem' }}>
 
               <p>Search by</p>
-              <Select defaultValue={defaultField} onChange={handleChange}>
+              <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChange}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
                 ))}
@@ -99,7 +100,7 @@ function SearchBox({
             <Space style={{ margin: '1rem' }}>
 
               <p>Order by</p>
-              <Select defaultValue={defaultField} onChange={handleChangeOrder}>
+              <Select style={{ width: 120 }} defaultValue={defaultField} onChange={handleChangeOrder}>
                 {fieldsQuery.map((field) => (
                   <Option value={field}>{field}</Option>
                 ))}
@@ -108,7 +109,7 @@ function SearchBox({
             <Space style={{ margin: '1rem' }}>
 
               <p>Type order</p>
-              <Select defaultValue={defaultTypeSort} onChange={handleChangeTypeOrder}>
+              <Select style={{ width: 120 }} defaultValue={defaultTypeSort} onChange={handleChangeTypeOrder}>
                 {typeSortOptions.map((field) => (
                   <Option value={field}>{field}</Option>
                 ))}

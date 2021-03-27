@@ -22,6 +22,8 @@ export default function Brewery() {
   const [sort, setSort] = useState(listFields[0] || '');
   const [typeSort, setTypeSort] = useState('asc');
   const [fieldsQuery, setFieldsQuery] = useState(listFields || []);
+  const [disabled, setDisabled] = useState(true);
+
   const verifyIfIsFavorite = (item) => {
     const filtered = favoritesOfUser?.filter((it: { key: string; }) => {
       if (it && it.key) {
@@ -53,6 +55,8 @@ export default function Brewery() {
   };
   const handleChange = (value) => {
     console.log(`selected ${value}`);
+    setDisabled(false);
+
     setFieldQuery(value);
   };
   const handleChangeOrder = (value) => {
@@ -65,7 +69,7 @@ export default function Brewery() {
   };
   return (
     <Layout>
-      <SearchBox defaultTypeSort="asc" typeSortOptions={['asc', 'desc']} handleChangeTypeOrder={handleChangeTypeOrder} handleChangeOrder={handleChangeOrder} defaultField={fieldQuery} fieldsQuery={fieldsQuery} onSearch={onSearch} handleChange={handleChange} />
+      <SearchBox disabled={disabled} defaultTypeSort="asc" typeSortOptions={['asc', 'desc']} handleChangeTypeOrder={handleChangeTypeOrder} handleChangeOrder={handleChangeOrder} defaultField={fieldQuery} fieldsQuery={fieldsQuery} onSearch={onSearch} handleChange={handleChange} />
       <div className="box">
         <List
           itemLayout="vertical"
