@@ -85,7 +85,7 @@ export default function Favorite() {
               <List.Item
                 key={item.key}
                 style={{
-                  minHeight: '20vh', paddingLeft: 10, marginTop: 10, marginBottom: 10, backgroundColor: '#fff',
+                  minHeight: '30vh', maxWidth: '95%', height: '95%', padding: '2rem', marginTop: 10, marginBottom: 10, backgroundColor: '#fff',
                 }}
                 actions={[
                   <AddFavoriteButton item={item} icon={StarOutlined} text="Remover dos favoritos" key="list-vertical-star-o" />,
