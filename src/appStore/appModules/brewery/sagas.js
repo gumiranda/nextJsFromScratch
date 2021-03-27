@@ -28,7 +28,7 @@ export function* getBrewerys({ payload }) {
   } catch (err) {
     console.log(err);
 
-    alert(JSON.stringify(err));
+    // alert(JSON.stringify(err));
     yield put(breweryFailure());
   }
 }
