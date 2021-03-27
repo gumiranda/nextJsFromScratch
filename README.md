@@ -3,10 +3,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 # Environment Config
 The file .env contains the name of database and string connection of a mongo instance database hosted in Mongo Atlas.
 
-```bash
-npm run dev
-# or
-yarn dev
+```
+NEXT_PUBLIC_BACKEND_URL=
+MONGODB_DB=basetest
+MONGODB_URI=
 ```
 
 ## Getting Started
